@@ -17,10 +17,11 @@ def main():
 					pygame.quit()
 					sys.exit()
 	while True:
+		canvas.fill((255, 255, 255))
 		handle_request("CHANGE_LOCATION", (0, 255, 0), pygame.mouse.get_pos())
-		position1 = handle_request("GET_POSITION", (255, 0, 0))
-		pygame.draw.rect(canvas, (255, 0, 0), pygame.Rect(position1[0]-25, position2[1]-25, 50, 50))
-		pygame.draw.rect(canvas, (255, 0, 0), pygame.Rect(pygame.mouse.get_pos()[0]-25, pygame.mouse.get_pos()[1]-25, 50, 50))
+		position2 = handle_request("GET_POSITION", (255, 0, 0))
+		pygame.draw.rect(canvas, (0, 255, 0), pygame.Rect(pygame.mouse.get_pos()[0]-25, pygame.mouse.get_pos()[1]-25, 50, 50))
+		pygame.draw.rect(canvas, (255, 0, 0), pygame.Rect(position2[0]-25, position2[1]-25, 50, 50))
 		if not handle_request("GET_ONLINE", (255, 0, 0)):
 			canvas.blit(Waiting, (0, 0))
 			pygame.display.update()
@@ -35,6 +36,7 @@ def main():
 				handle_request("SET_ONLINE", (0, 255, 0), False)
 				pygame.quit()
 				sys.exit()
+		pygame.display.update()
 def handle_request(*data):
 	SizeStruct = struct.Struct('!I')
 	info = pickle.dumps(data)
