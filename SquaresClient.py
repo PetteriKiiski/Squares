@@ -5,34 +5,34 @@ canvas = pygame.display.set_mode((500, 500))
 Address = ("10.0.0.147", 9653)
 def main():
 	Waiting = pygame.image.load("Waiting.png")
-	mycolor = (255, 0, 0)
-	handle_request("SET_ONLINE", (255, 0, 0), True)
-	if not handle_request("GET_ONLINE", (0, 255, 0)):
+	mycolor = (0, 255, 0)
+	handle_request("SET_ONLINE", (0, 255, 0), True)
+	if not handle_request("GET_ONLINE", (255, 0, 0)):
 		canvas.blit(Waiting, (0, 0))
 		pygame.display.update()
-		while not handle_request("GET_ONLINE", (0, 255, 0)):
+		while not handle_request("GET_ONLINE", (255, 0, 0)):
 			for event in pygame.event.get():
 				if event.type == QUIT:
-					handle_request("SET_ONLINE", (255, 0, 0), False)
+					handle_request("SET_ONLINE", (0, 255, 0), False)
 					pygame.quit()
 					sys.exit()
 	while True:
-		handle_request("CHANGE_LOCATION", (255, 0, 0), pygame.mouse.pos())
-		position1 = handle_request("GET_POSITION", (0, 255, 0))
-		pygame.draw.rect(canvas, (0, 255, 0), pygame.Rect(position1[0]-25, position2[1]-25, 50, 50))
-		pygame.draw.rect(canvas, (0, 255, 0), pygame.Rect(pygame.mouse.pos()[0]-25, pygame.mouse.pos()[1]-25, 50, 50))
-		if not handle_request("GET_ONLINE", (0, 255, 0)):
+		handle_request("CHANGE_LOCATION", (0, 255, 0), pygame.mouse.get_pos())
+		position1 = handle_request("GET_POSITION", (255, 0, 0))
+		pygame.draw.rect(canvas, (255, 0, 0), pygame.Rect(position1[0]-25, position2[1]-25, 50, 50))
+		pygame.draw.rect(canvas, (255, 0, 0), pygame.Rect(pygame.mouse.get_pos()[0]-25, pygame.mouse.get_pos()[1]-25, 50, 50))
+		if not handle_request("GET_ONLINE", (255, 0, 0)):
 			canvas.blit(Waiting, (0, 0))
 			pygame.display.update()
-			while not handle_request("GET_ONLINE", (0, 255, 0)):
+			while not handle_request("GET_ONLINE", (255, 0, 0)):
 				for event in pygame.event.get():
 					if event.type == QUIT:
-						handle_request("SET_ONLINE", (255, 0, 0), False)
+						handle_request("SET_ONLINE", (0, 255, 0), False)
 						pygame.quit()
 						sys.exit()
 		for event in pygame.event.get():
 			if event.type == QUIT:
-				handle_request("SET_ONLINE", (255, 0, 0), False)
+				handle_request("SET_ONLINE", (0, 255, 0), False)
 				pygame.quit()
 				sys.exit()
 def handle_request(*data):
