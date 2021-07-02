@@ -7,10 +7,10 @@ def main():
 	Waiting = pygame.image.load("Waiting.png")
 	mycolor = (255, 0, 0)
 	handle_request("SET_ONLINE", (255, 0, 0), True)
-	if not handle_request("GET_ONLINE", (0, 255, 255)):
+	if not handle_request("GET_ONLINE", (0, 255, 0)):
 		canvas.blit(Waiting, (0, 0))
 		pygame.display.update()
-		while not handle_request("GET_ONLINE", (0, 255, 255)):
+		while not handle_request("GET_ONLINE", (0, 255, 0)):
 			for event in pygame.event.get():
 				if event.type == QUIT:
 					handle_request("SET_ONLINE", (255, 0, 0), False)
@@ -21,10 +21,10 @@ def main():
 		position1 = handle_request("GET_POSITION", (0, 255, 0))
 		pygame.draw.rect(canvas, (0, 255, 0), pygame.Rect(position1[0]-25, position2[1]-25, 50, 50))
 		pygame.draw.rect(canvas, (0, 255, 0), pygame.Rect(pygame.mouse.pos()[0]-25, pygame.mouse.pos()[1]-25, 50, 50))
-		if not handle_request("GET_ONLINE", (0, 255, 255)):
+		if not handle_request("GET_ONLINE", (0, 255, 0)):
 			canvas.blit(Waiting, (0, 0))
 			pygame.display.update()
-			while not handle_request("GET_ONLINE", (0, 255, 255)):
+			while not handle_request("GET_ONLINE", (0, 255, 0)):
 				for event in pygame.event.get():
 					if event.type == QUIT:
 						handle_request("SET_ONLINE", (255, 0, 0), False)

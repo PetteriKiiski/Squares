@@ -16,7 +16,6 @@ class RequestHandler(socketserver.StreamRequestHandler):
 		data = pickle.loads(self.rfile.read(size))
 		with CallLock:
 			reply = CallDict[data[0]](self, *data[1:])
-		print (reply)
 		reply = pickle.dumps(reply, 3)
 		self.wfile.write(SizeStruct.pack(len(reply)))
 		self.wfile.write(reply)
