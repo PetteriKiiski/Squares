@@ -1,19 +1,40 @@
-import socket, pygame, pickle, struct, sys
+import socket, pygame, pickle, struct, sys, os
 from pygame.locals import *
 pygame.init()
 canvas = pygame.display.set_mode((500, 500))
 Address = ("10.0.0.147", 9653)
 def main():
+	Waiting = pygame.image.load("Waiting.png")
 	mycolor = (255, 0, 0)
 	handle_request("SET_ONLINE", (255, 0, 0), True)
 	if not handle_request("GET_ONLINE", (0, 255, 255)):
+		canvas.blit(Waiting, (0, 0))
+		pygame.display.update()
 		while not handle_request("GET_ONLINE", (0, 255, 255)):
 			for event in pygame.event.get():
 				if event.type == QUIT:
 					handle_request("SET_ONLINE", (255, 0, 0), False)
 					pygame.quit()
 					sys.exit()
-	#Start mainloop
+	while True:
+		handle_request("CHANGE_LOCATION", (255, 0, 0), pygame.mouse.pos())
+		position1 = handle_request("GET_POSITION", (0, 255, 0))
+		pygame.draw.rect(canvas, (0, 255, 0), pygame.Rect(position1[0]-25, position2[1]-25, 50, 50))
+		pygame.draw.rect(canvas, (0, 255, 0), pygame.Rect(pygame.mouse.pos()[0]-25, pygame.mouse.pos()[1]-25, 50, 50))
+		if not handle_request("GET_ONLINE", (0, 255, 255)):
+			canvas.blit(Waiting, (0, 0))
+			pygame.display.update()
+			while not handle_request("GET_ONLINE", (0, 255, 255)):
+				for event in pygame.event.get():
+					if event.type == QUIT:
+						handle_request("SET_ONLINE", (255, 0, 0), False)
+						pygame.quit()
+						sys.exit()
+		for event in pygame.event.get():
+			if event.type == QUIT:
+				handle_request("SET_ONLINE", (255, 0, 0), False)
+				pygame.quit()
+				sys.exit()
 def handle_request(*data):
 	SizeStruct = struct.Struct('!I')
 	info = pickle.dumps(data)
@@ -37,3 +58,4 @@ class SocketManager:
 		return self.sock
 	def __exit__(self, *ignore):
 		self.sock.close()
+main()
