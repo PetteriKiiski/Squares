@@ -14,6 +14,7 @@ class RequestHandler(socketserver.StreamRequestHandler):
 		size = SizeStruct.unpack(size_data)
 		size = size[0]
 		data = pickle.loads(self.rfile.read(size))
+		print (*data[1:])
 		with CallLock:
 			reply = CallDict[data[0]](self, *data[1:])
 		reply = pickle.dumps(reply, 3)
@@ -23,7 +24,7 @@ class RequestHandler(socketserver.StreamRequestHandler):
 		Online[color] = value
 	def get_online(self, color):
 		return Online[color]
-	def change_position(self, color, loc):
+	def change_location(self, color, loc):
 		Location[color] = loc
 	def get_position(self, color):
 		return Location[color]

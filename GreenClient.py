@@ -18,6 +18,7 @@ def main():
 					sys.exit()
 	while True:
 		canvas.fill((255, 255, 255))
+		handle_request("SET_ONLINE", (0, 255, 0), True)
 		handle_request("CHANGE_LOCATION", (0, 255, 0), pygame.mouse.get_pos())
 		position2 = handle_request("GET_POSITION", (255, 0, 0))
 		pygame.draw.rect(canvas, (0, 255, 0), pygame.Rect(pygame.mouse.get_pos()[0]-25, pygame.mouse.get_pos()[1]-25, 50, 50))
