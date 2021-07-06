@@ -3,9 +3,21 @@ from pygame.locals import *
 pygame.init()
 canvas = pygame.display.set_mode((500, 500))
 Address = ("10.0.0.147", 9653)
+def ConnectServer(tryer, Addresses):
+	Address = Addresses[0]
+	try:
+		handle_request(tryer, (0, 255, 0))
+	except:
+		del Addresses[0]
+		if len(Addresses) == 0:
+			return
+		return ConnectServer(tryer, Addresses)
 def main():
 	Waiting = pygame.image.load("Waiting.png")
 	mycolor = (255, 0, 0)
+	Address = ConnectServer(tryer, Address1, Address2):
+	if Address == None:
+		sys.exit()
 	handle_request("SET_ONLINE", (255, 0, 0), True)
 	if not handle_request("GET_ONLINE", (0, 255, 0)):
 		canvas.blit(Waiting, (0, 0))

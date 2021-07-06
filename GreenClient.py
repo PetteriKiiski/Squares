@@ -2,11 +2,24 @@ import socket, pygame, pickle, struct, sys, os
 from pygame.locals import *
 pygame.init()
 canvas = pygame.display.set_mode((500, 500))
-Address = ("10.0.0.147", 9653)
+Address1 = ("10.0.0.147", 9653)
+Address2 = ("10.0.0.147", 9653)
+Address = Address1[:]
+def ConnectServer(tryer, *Addresses):
+	Address = Addresses[0]
+	try:
+		handle_request(tryer, (0, 255, 0))
+	except:
+		del Addresses[0]
+		if len(Addresses) == 0:
+			return
+		return ConnectServer(tryer, Addresses)
 def main():
 	Waiting = pygame.image.load("Waiting.png")
 	mycolor = (0, 255, 0)
-	handle_request("SET_ONLINE", (0, 255, 0), True)
+	Address = ConnectServer(tryer, Address1, Address2):
+	if Address == None:
+		sys.exit()
 	if not handle_request("GET_ONLINE", (255, 0, 0)):
 		canvas.blit(Waiting, (0, 0))
 		pygame.display.update()
@@ -29,7 +42,7 @@ def main():
 			while not handle_request("GET_ONLINE", (255, 0, 0)):
 				for event in pygame.event.get():
 					if event.type == QUIT:
-						handle_request("SET_ONLINE", (0, 255, 0), False)
+						handle_request("SET_ONLINE", (255, 0, 0), False)
 						pygame.quit()
 						sys.exit()
 		for event in pygame.event.get():
